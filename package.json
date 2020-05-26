@@ -25,7 +25,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "heroku-postbuild": "REACT_APP_HEROKU_SLUG_COMMIT=$HEROKU_SLUG_COMMIT yarn react-scripts build",
+  "heroku-postbuild": "NODE_ENV=production REACT_APP_SOURCE_VERSION=$SOURCE_VERSION yarn react-scripts build",
   "browserslist": {
     "production": [
       ">0.2%",
