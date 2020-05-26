@@ -14,5 +14,5 @@ app.use('/', express.static(path.join(__dirname,'build')));
 app.use('/*', (req,res) => res.sendFile(path.join(__dirname,'build/index.html')))
 
 app.listen(process.env.PORT || 8000, () => {
-    console.log(`service listening on port ${process.env.PORT || 8000}`)
+    console.log(`Express listening on port ${process.env.PORT || 8000}`)
 })
