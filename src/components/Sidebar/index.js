@@ -31,6 +31,7 @@ class SidebarComponent extends React.Component {
                     <Menu.Item as={Link} to='/basictens' onClick={this.close} header>Basic 10s</Menu.Item>
                     <Menu.Item as={Link} to='/missingnumber' onClick={this.close} header>Missing Number</Menu.Item>
                     <Menu.Item as='a' header onClick={this.close} >Close Menu</Menu.Item>
+                    <Menu.Item>release: {process.env.REACT_APP_HEROKU_SLUG_COMMIT||'develop'}</Menu.Item>
                 </Sidebar>
                 <Sidebar.Pusher>
                     {this.props.children}
