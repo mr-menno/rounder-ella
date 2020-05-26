@@ -23,6 +23,7 @@ import {
 
 import Sidebar from './components/Sidebar';
 import Rounding from './components/Exercises/Rounding';
+import BasicTens from './components/Exercises/BasicTens';
 import MissingNumber from './components/Exercises/MissingNumber';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         </Menu>
         <Switch>
           <Route path='/rounding' component={Rounding} />
+          <Route path='/basictens' component={BasicTens} />
           <Route path='/missingnumber' component={MissingNumber} />
           <Route><Redirect to='/rounding'/></Route>
         </Switch>

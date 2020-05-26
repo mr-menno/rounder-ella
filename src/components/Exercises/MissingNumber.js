@@ -25,15 +25,15 @@ function MissingNumber() {
 
     let missing = Math.floor(Math.random()*length);
 
-    let answer = numbers[missing];
+    let answer = numbers[missing].toString();
     numbers[missing]='__';
     let question = numbers.join(", ");
 
     let answer_choices = [answer];
 
     for(let c=0;c<(length-1);c++) {
-      if(Math.random()<0.5) answer_choices.push(Math.floor(Math.random()*maximum));
-      else answer_choices.unshift(Math.floor(Math.random()*maximum));
+      if(Math.random()<0.5) answer_choices.push(Math.floor(Math.random()*maximum).toString());
+      else answer_choices.unshift(Math.floor(Math.random()*maximum).toString());
     }
 
     return {
@@ -51,10 +51,11 @@ function MissingNumber() {
   let [stats,setStats] = useState({questions:0,correct:0,wrong:0})
 
   let checkQuestion = (_answer) => {
-    if(_answer) answer = _answer;
+    if(_answer || _answer===0) answer = _answer;
+    console.log('Comparing',{answer:answer, correct:question.answer})
     setAnswer(_answer);
     setAnswered(true);
-    if(parseInt(answer)===question.answer) {
+    if(answer===question.answer) {
       if(question.outcome===-1) {
         setQuestion({...question,outcome:0})
         setStats({...stats,correct:stats.correct+1,questions:stats.questions+1});
@@ -88,26 +89,27 @@ function MissingNumber() {
         <Segment>
           <h1>{question.question} </h1>
         </Segment>
-        <Segment>
-          {question.answer_choices.map(c => (
-            <Button onClick={() => {checkQuestion(c) }}>{c}</Button>
-          ))}
-        </Segment>
-        <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
+        
+        {/* <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
             setAnswer(data.value.replace(/,/g,''));
             // if(parseInt(data.value)===question.answer) {
             //   console.log(data.value,question.answer);
             //   checkQuestion(data.value);
             // }
           }}
-          placeholder='answer' fluid size="massive" focus={true} className="number-input"/>
+          placeholder='answer' fluid size="massive" focus={true} className="number-input"/> */}
         {answered ? (result ? <Message
           positive
           header='Nice work!'
         /> : <Message
           negative
-          header='Try again' />) :
-        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">check</Button>}
+          header='Try again' />) : (
+            <Segment>
+              {question.answer_choices.map(c => (
+                <Button className="choices" size="medium" active={false} focus={false} onClick={() => {checkQuestion(c) }}>{c}</Button>
+              ))}
+            </Segment>
+          )}
         <Button.Group fluid className='mt-1em' >
           <Button primary icon labelPosition='left'>{stats.questions}<Icon name='hashtag' /></Button>
           <Button positive icon labelPosition='left'>{stats.correct}<Icon name='check' /></Button>
