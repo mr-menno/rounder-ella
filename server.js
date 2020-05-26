@@ -11,6 +11,7 @@ app.enable('trust proxy');
 // app.all('/proxy/?*', jsforceAjaxProxy({ enableCORS: true }));
 
 app.use('/', express.static(path.join(__dirname,'build')));
+app.use('/dyno', (req,res) => res.sendFile('/etc/heroku/dyno'))
 app.use('/*', (req,res) => res.sendFile(path.join(__dirname,'build/index.html')))
 
 app.listen(process.env.PORT || 8000, () => {
