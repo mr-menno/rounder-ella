@@ -42,10 +42,10 @@ function BasicTens() {
     let solve = Math.random()>0.5 ? false : true;
     let question=0; let answer=0;
     if(solve) {
-      question = `${A} + __ = ${add ? A+B:A-B}`;
+      question = `${A} ${add?'+':'-'} __ = ${add ? A+B:A-B}`;
       answer = B;
     } else {
-      question = `${A} + ${B} = __`;
+      question = `${A} ${add?'+':'-'} ${B} = __`;
       answer = add ? A+B : A-B;
     }
 
