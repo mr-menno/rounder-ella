@@ -46,3 +46,11 @@
 .mb-1em {
   margin-bottom: 1em !important;
 }
+
+.pushable {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
