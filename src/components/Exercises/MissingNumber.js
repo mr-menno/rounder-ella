@@ -19,7 +19,7 @@ function MissingNumber() {
     let start = Math.floor(Math.random()*(maximum-length));
 
     let numbers = [];
-    for(let i=0;i<5;i++) {
+    for(let i=0;i<length;i++) {
       numbers.push(start++);
     }
 
@@ -29,9 +29,17 @@ function MissingNumber() {
     numbers[missing]='__';
     let question = numbers.join(", ");
 
+    let answer_choices = [answer];
+
+    for(let c=0;c<(length-1);c++) {
+      if(Math.random()<0.5) answer_choices.push(Math.floor(Math.random()*maximum));
+      else answer_choices.unshift(Math.floor(Math.random()*maximum));
+    }
+
     return {
       question: question,
       answer: answer,
+      answer_choices: answer_choices,
       outcome: -1
     }
   }
@@ -42,7 +50,9 @@ function MissingNumber() {
   let [result,setResult] = useState(false);
   let [stats,setStats] = useState({questions:0,correct:0,wrong:0})
 
-  let checkQuestion = () => {
+  let checkQuestion = (_answer) => {
+    if(_answer) answer = _answer;
+    setAnswer(_answer);
     setAnswered(true);
     if(parseInt(answer)===question.answer) {
       if(question.outcome===-1) {
@@ -78,7 +88,12 @@ function MissingNumber() {
         <Segment>
           <h1>{question.question} </h1>
         </Segment>
-        <Input value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
+        <Segment>
+          {question.answer_choices.map(c => (
+            <Button onClick={() => {checkQuestion(c) }}>{c}</Button>
+          ))}
+        </Segment>
+        <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
             setAnswer(data.value.replace(/,/g,''));
             // if(parseInt(data.value)===question.answer) {
             //   console.log(data.value,question.answer);

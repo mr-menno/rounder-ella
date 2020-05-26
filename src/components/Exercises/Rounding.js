@@ -73,7 +73,7 @@ function Rounding() {
         <Segment>
           <h1>{question.question} </h1>
         </Segment>
-        <Input value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
+        <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
             setAnswer(data.value.replace(/,/g,''));
             // if(parseInt(data.value)===question.answer) {
             //   console.log(data.value,question.answer);
