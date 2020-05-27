@@ -36,7 +36,6 @@ class SidebarComponent extends React.Component {
                 </Sidebar>
                 <Sidebar.Pusher>
                     {this.props.children}
-                    <pre>{JSON.stringify(process.env,null,2)}</pre>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>
         );
