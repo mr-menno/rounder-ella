@@ -12,7 +12,7 @@ app.enable('trust proxy');
 
 app.use('/', express.static(path.join(__dirname,'build')));
 app.use('/dyno', (req,res) => res.sendFile('/etc/heroku/dyno'));
-app.use('/vars', (req,res) => res.json(process.env));
+app.use('/vars', (req,res) => res.json(process.env))
 app.use('/*', (req,res) => res.sendFile(path.join(__dirname,'build/index.html')))
 
 app.listen(process.env.PORT || 8000, () => {
