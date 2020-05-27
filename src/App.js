@@ -26,31 +26,48 @@ import Rounding from './components/Exercises/Rounding';
 import BasicTens from './components/Exercises/BasicTens';
 import MissingNumber from './components/Exercises/MissingNumber';
 
-function App() {
+class App extends React.component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      release: {}
+    }
+  }
 
-  let [sidebar, setSidebar ] = useState(false);
-  return (
-    <Router>
-    <Sidebar visible={sidebar}
-        onClose={() => setSidebar(!sidebar)}
-      ><div className="App" style={{paddingTop:'4em'}}>
-        <Menu inverted fixed="top">
-          <Menu.Item
-            icon='bars'
-            // active={activeItem === 'home'}
-            onClick={() => setSidebar(!sidebar)}
-          />
-        </Menu>
-        <Switch>
-          <Route path='/rounding' component={Rounding} />
-          <Route path='/basictens' component={BasicTens} />
-          <Route path='/missingnumber' component={MissingNumber} />
-          <Route><Redirect to='/rounding'/></Route>
-        </Switch>
-      </div>
-    </Sidebar>
-    </Router>
-  );
+  componentDidMount() {
+    fetch('/release')
+      .then(res => res.json())
+      .then(data => this.setState({release:data}))
+  }
+
+  render() {
+    let sidebar = this.state.sidebar||false;
+    let setSidebar = (visible) => this.setState({sidebar:visible});
+
+    return (
+      <Router>
+      <Sidebar visible={sidebar}
+          onClose={() => setSidebar(!sidebar)}
+          release={this.state.release}
+        ><div className="App" style={{paddingTop:'4em'}}>
+          <Menu inverted fixed="top">
+            <Menu.Item
+              icon='bars'
+              // active={activeItem === 'home'}
+              onClick={() => setSidebar(!sidebar)}
+            />
+          </Menu>
+          <Switch>
+            <Route path='/rounding' component={Rounding} />
+            <Route path='/basictens' component={BasicTens} />
+            <Route path='/missingnumber' component={MissingNumber} />
+            <Route><Redirect to='/rounding'/></Route>
+          </Switch>
+        </div>
+      </Sidebar>
+      </Router>
+    );
+  }
 }
 
 export default App;
