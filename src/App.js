@@ -26,7 +26,7 @@ import Rounding from './components/Exercises/Rounding';
 import BasicTens from './components/Exercises/BasicTens';
 import MissingNumber from './components/Exercises/MissingNumber';
 
-class App extends React.component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
