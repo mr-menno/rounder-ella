@@ -22,8 +22,15 @@ function Multiplications() {
 
   let newQuestion = (limit) => {
     if(numbers.length===0) return { };
-    let A = Math.round(Math.random()*10);
+    let A = Math.round(Math.random()*20);
     let B = numbers[Math.round(Math.random()*(numbers.length-1))];
+
+    if(Math.random()>0.5) {
+      let oldA=A;
+      let oldB=B;
+      A=oldB;
+      B=oldA;
+    }
 
     let question = {
       // level: level,
@@ -64,7 +71,7 @@ function Multiplications() {
       setTimeout(() => {
         setAnswered(false);
         setAnswer('');
-        setQuestion(newQuestion(numbers.length*10))
+        setQuestion(newQuestion(numbers.length*20))
       },500)
     } else {
       if(question.outcome===-1) {
@@ -85,7 +92,7 @@ function Multiplications() {
       <Container>
         <Segment>Which numbers?</Segment>
         <Segment>
-          {[0,1,2,3,4,5,6,7,8,9,10].map(c => (
+          {[0,1,2,3,4,5,6,7,8,9,10,11,12].map(c => (
             <Button primary={numbers.includes(c)} className="choices" size="medium" active={false} focus={false} onClick={() => {
               if(!numbers.includes(c)) setNumbers([...numbers,c]);
               else setNumbers(numbers.filter(n => n!==c));
