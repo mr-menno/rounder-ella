@@ -28,6 +28,7 @@ class SidebarComponent extends React.Component {
                     visible={this.props.visible}
                 >
                     <Menu.Item as={Link} to='/rounding' onClick={this.close} header>Rounding</Menu.Item>
+                    <Menu.Item as={Link} to='/multiplications' onClick={this.close} header>Multiplications</Menu.Item>
                     <Menu.Item as={Link} to='/basictens' onClick={this.close} header>Basic 10s</Menu.Item>
                     <Menu.Item as={Link} to='/missingnumber' onClick={this.close} header>Missing Number</Menu.Item>
                     <Menu.Item as='a' header onClick={this.close} >Close Menu</Menu.Item>

@@ -25,6 +25,7 @@ import Sidebar from './components/Sidebar';
 import Rounding from './components/Exercises/Rounding';
 import BasicTens from './components/Exercises/BasicTens';
 import MissingNumber from './components/Exercises/MissingNumber';
+import Multiplications from './components/Exercises/Multiplications';
 
 class App extends React.Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class App extends React.Component {
           </Menu>
           <Switch>
             <Route path='/rounding' component={Rounding} />
+            <Route path='/multiplications' component={Multiplications} />
             <Route path='/basictens' component={BasicTens} />
             <Route path='/missingnumber' component={MissingNumber} />
             <Route><Redirect to='/rounding'/></Route>
