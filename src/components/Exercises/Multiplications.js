@@ -23,7 +23,7 @@ function Multiplications() {
   let newQuestion = (limit) => {
     if(numbers.length===0) return { };
     let A = Math.round(Math.random()*10);
-    let B = Math.round(Math.random()*(numbers.length-1));
+    let B = numbers[Math.round(Math.random()*(numbers.length-1))];
 
     let question = {
       // level: level,
