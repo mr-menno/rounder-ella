@@ -22,7 +22,7 @@ function Multiplications() {
 
   let newQuestion = (limit) => {
     if(numbers.length===0) return { };
-    let A = Math.round(Math.random()*20);
+    let A = Math.round(Math.random()*10);
     let B = numbers[Math.round(Math.random()*(numbers.length-1))];
 
     if(Math.random()>0.5) {
@@ -102,7 +102,7 @@ function Multiplications() {
         {numbers.length>0 ? <Segment>
           <Button className='mt-1em mb-1em' fluid color="green" onClick={() => {
             setReady(true);
-            setQuestion(newQuestion(numbers.length*10));
+            setQuestion(newQuestion(numbers.length*20));
           }} size="huge">LET'S GO!!</Button>
         </Segment> : null}
       </Container>
