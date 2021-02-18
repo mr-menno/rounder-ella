@@ -19,6 +19,7 @@ function Subtraction() {
     let B = options[Math.floor(Math.random()*options.length)];
     let question = `${A} - ${B*-1}`;
     let answer = A+B;
+    if(answer<0) return newQuestion();
     return {
       A: A,
       B: B,
