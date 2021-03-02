@@ -15,7 +15,7 @@ function Subtraction() {
 
   let newQuestion = () => {
     let A = Math.ceil(Math.random()*21)-1;
-    let options = [-0,-1,-2,-8,-9];
+    let options = [-0,-1,-2,-8,-9, -10];
     let B = options[Math.floor(Math.random()*options.length)];
     let question = `${A} - ${B*-1}`;
     let answer = A+B;
