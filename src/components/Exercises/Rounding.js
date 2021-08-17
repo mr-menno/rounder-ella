@@ -14,7 +14,7 @@ import {
 function Rounding() {
 
   let newQuestion = () => {
-    let levels=[10,100];
+    let levels=[10]; //,100];
     let level = levels[Math.floor(Math.random()*levels.length)];
 
     let question = Math.floor(Math.random()*(level*10));
