@@ -68,10 +68,11 @@ function Subtraction() {
   
   useEffect(() => {
     const timer = setInterval(() => {
-      setQuestion({...question,timeout:question.timeout--});
-      if(question.timeout==0) {
+      let old_timeout = question.timeout;
+      let new_timeout = old_timeout>0 ? old_timeout - 1 : 0;
+      setQuestion({...question,timeout:new_timeout});
+      if(old_timeout > 0 && new_timeout==0) {
         setImmediate(checkQuestion);
-        clearInterval(timer);
       }
     }, 1000);
     return () => clearInterval(timer);
