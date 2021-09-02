@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect , useRef } from 'react';
 
 import {
   Container,
@@ -38,6 +38,8 @@ function Subtraction() {
   let [answered,setAnswered] = useState(false);
   let [result,setResult] = useState(false);
   let [stats,setStats] = useState({questions:0,correct:0,wrong:0});
+  let questionRef = useRef(question);
+  questionRef.current = question;
 
   let checkQuestion = () => {
     setAnswered(true);
@@ -68,11 +70,10 @@ function Subtraction() {
   
   useEffect(() => {
     const timer = setInterval(() => {
-      let old_timeout = question.timeout;
+      let old_timeout = questionRef.current.timeout;
       let new_timeout = old_timeout - 1;
       if(new_timeout<0) new_timeout=0;
-      question.timeout = new_timeout;
-      setQuestion({...question,timeout:new_timeout});
+      setQuestion({...questionRef.current,timeout:new_timeout});
       if(old_timeout > 0 && new_timeout==0) {
         setImmediate(checkQuestion);
       }
