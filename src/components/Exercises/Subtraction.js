@@ -20,20 +20,24 @@ function Subtraction() {
     let question = `${A} - ${B*-1}`;
     let answer = A+B;
     if(answer<0) return newQuestion();
-    return {
+    
+    let question = {
       A: A,
       B: B,
       question: question,
       answer: answer,
-      outcome: -1
-    }
+      outcome: -1,
+      timeout: 15
+    };
+    
+    return question;
   }
  
   let [question,setQuestion] = useState(newQuestion())
   let [answer,setAnswer] = useState('');
   let [answered,setAnswered] = useState(false);
   let [result,setResult] = useState(false);
-  let [stats,setStats] = useState({questions:0,correct:0,wrong:0})
+  let [stats,setStats] = useState({questions:0,correct:0,wrong:0});
 
   let checkQuestion = () => {
     setAnswered(true);
@@ -61,6 +65,13 @@ function Subtraction() {
     }
     // setQuestion(newQuestion());
   }
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuestion({...question,timeout:question.timeout--});
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   
   return (
@@ -70,7 +81,7 @@ function Subtraction() {
           <h3>subtraction</h3>
         </Segment>
         <Segment>
-          <h1>{question.question} </h1>
+          <h1>{question.question} {question.timeout}</h1>
         </Segment>
         <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
             setAnswer(data.value.replace(/,/g,''));
