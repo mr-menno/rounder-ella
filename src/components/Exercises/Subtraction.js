@@ -67,6 +67,8 @@ function Subtraction() {
     }
     // setQuestion(newQuestion());
   }
+  let checkQuestionRef = useRef(checkQuestion);
+  checkQuestionRef.current = checkQuestion;
   
   useEffect(() => {
     const timer = setInterval(() => {
@@ -75,7 +77,7 @@ function Subtraction() {
       if(new_timeout<0) new_timeout=0;
       setQuestion({...questionRef.current,timeout:new_timeout});
       if(old_timeout > 0 && new_timeout==0) {
-        setImmediate(checkQuestion);
+        setImmediate(checkQuestionRef.current);
       }
     }, 1000);
     return () => clearInterval(timer);
