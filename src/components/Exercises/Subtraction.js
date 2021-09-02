@@ -56,7 +56,7 @@ function Subtraction() {
       },1000)
     } else {
       if(question.outcome===-1) {
-        setQuestion({...question,outcome:0})
+        setQuestion({...question,outcome:0});
         setStats({...stats,wrong:stats.wrong+1,questions:stats.questions+1});
       }
       setResult(false);
@@ -107,7 +107,7 @@ function Subtraction() {
         /> : <Message
           negative
           header='Try again' />) :
-        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">check ({question.timeout} s.)</Button>}
+        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">{question.timeout>0 ? "checking in "+question.timeout+" s." : "check now"}</Button>}
         <Button.Group fluid className='mt-1em' >
           <Button primary icon labelPosition='left'>{stats.questions}<Icon name='hashtag' /></Button>
           <Button positive icon labelPosition='left'>{stats.correct}<Icon name='check' /></Button>
