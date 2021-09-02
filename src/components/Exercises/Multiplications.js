@@ -92,6 +92,18 @@ function Multiplications() {
   let checkQuestionRef = useRef(checkQuestion);
   checkQuestionRef.current = checkQuestion;
   
+  useEffect(() => {
+    const timer = setInterval(() => {
+      let old_timeout = questionRef.current.timeout;
+      let new_timeout = old_timeout - 1;
+      if(new_timeout<0) new_timeout=0;
+      setQuestion({...questionRef.current,timeout:new_timeout});
+      if(old_timeout > 0 && new_timeout==0) {
+        setImmediate(checkQuestionRef.current);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   if(!ready) {
     return (
@@ -115,18 +127,7 @@ function Multiplications() {
     );
   }
   
-  useEffect(() => {
-    const timer = setInterval(() => {
-      let old_timeout = questionRef.current.timeout;
-      let new_timeout = old_timeout - 1;
-      if(new_timeout<0) new_timeout=0;
-      setQuestion({...questionRef.current,timeout:new_timeout});
-      if(old_timeout > 0 && new_timeout==0) {
-        setImmediate(checkQuestionRef.current);
-      }
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  
 
   return (
 
