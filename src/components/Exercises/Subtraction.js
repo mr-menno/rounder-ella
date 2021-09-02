@@ -69,6 +69,8 @@ function Subtraction() {
   useEffect(() => {
     const timer = setInterval(() => {
       setQuestion({...question,timeout:question.timeout--});
+      if(question.timeout==0) setImmediate(checkQuestion);
+      clearTimer(timer);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -81,7 +83,7 @@ function Subtraction() {
           <h3>subtraction</h3>
         </Segment>
         <Segment>
-          <h1>{question.question} {question.timeout}</h1>
+          <h1>{question.question}</h1>
         </Segment>
         <Input type="number" pattern="\d*" value={answer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} onChange={(e,data) => {
             setAnswer(data.value.replace(/,/g,''));
@@ -97,7 +99,7 @@ function Subtraction() {
         /> : <Message
           negative
           header='Try again' />) :
-        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">check</Button>}
+        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">check ({question.timeout} s.)</Button>}
         <Button.Group fluid className='mt-1em' >
           <Button primary icon labelPosition='left'>{stats.questions}<Icon name='hashtag' /></Button>
           <Button positive icon labelPosition='left'>{stats.correct}<Icon name='check' /></Button>
