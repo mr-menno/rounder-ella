@@ -21,7 +21,7 @@ function Subtraction() {
     let answer = A+B;
     if(answer<0) return newQuestion();
     
-    let question = {
+    let r_question = {
       A: A,
       B: B,
       question: question,
@@ -30,7 +30,7 @@ function Subtraction() {
       timeout: 15
     };
     
-    return question;
+    return r_question;
   }
  
   let [question,setQuestion] = useState(newQuestion())
