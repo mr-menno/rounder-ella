@@ -71,6 +71,7 @@ function Subtraction() {
       let old_timeout = question.timeout;
       let new_timeout = old_timeout - 1;
       if(new_timeout<0) new_timeout=0;
+      question.timeout = new_timeout;
       setQuestion({...question,timeout:new_timeout});
       if(old_timeout > 0 && new_timeout==0) {
         setImmediate(checkQuestion);
