@@ -70,7 +70,7 @@ function Subtraction() {
     const timer = setInterval(() => {
       setQuestion({...question,timeout:question.timeout--});
       if(question.timeout==0) setImmediate(checkQuestion);
-      clearTimer(timer);
+      clearInterval(timer);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
