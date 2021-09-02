@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect , useRef } from 'react';
 
 import {
   Container,
@@ -37,6 +37,7 @@ function Multiplications() {
       question: A + " x " + B + " = ___",
       answer: A*B,
       outcome: -1,
+      timeout: 15,
     }
 
     console.log(limit);
@@ -55,6 +56,8 @@ function Multiplications() {
     return question;
   }
   let [question,setQuestion] = useState({}); //useState(newQuestion(numbers.length*10))
+  let questionRef = useRef(question);
+  questionRef.current = question;
 
 
   let checkQuestion = () => {
@@ -86,6 +89,9 @@ function Multiplications() {
     }
     // setQuestion(newQuestion());
   }
+  let checkQuestionRef = useRef(checkQuestion);
+  checkQuestionRef.current = checkQuestion;
+  
 
   if(!ready) {
     return (
@@ -108,6 +114,19 @@ function Multiplications() {
       </Container>
     );
   }
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      let old_timeout = questionRef.current.timeout;
+      let new_timeout = old_timeout - 1;
+      if(new_timeout<0) new_timeout=0;
+      setQuestion({...questionRef.current,timeout:new_timeout});
+      if(old_timeout > 0 && new_timeout==0) {
+        setImmediate(checkQuestionRef.current);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
 
@@ -133,7 +152,7 @@ function Multiplications() {
         /> : <Message
           negative
           header='Try again' />) :
-        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">check</Button>}
+        <Button className='mt-1em mb-1em' fluid color="green" onClick={checkQuestion} size="huge">{question.timeout>0 ? "checking in "+question.timeout+" s." : "check now"}</Button>}
         <Button.Group fluid className='mt-1em' >
           <Button primary icon labelPosition='left'>{stats.questions}<Icon name='hashtag' /></Button>
           <Button positive icon labelPosition='left'>{stats.correct}<Icon name='check' /></Button>
