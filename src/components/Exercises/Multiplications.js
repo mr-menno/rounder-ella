@@ -37,7 +37,7 @@ function Multiplications() {
       question: A + " x " + B + " = ___",
       answer: A*B,
       outcome: -1,
-      timeout: 15,
+      timeout: 30,
     }
 
     console.log(limit);
